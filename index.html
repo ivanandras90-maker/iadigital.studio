@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="hu">
+<head>
+<style>html.i18n-loading body{visibility:hidden}</style><script>document.documentElement.classList.add('i18n-loading');try{var l=localStorage.getItem('ia-lang');if(l)document.documentElement.lang=l}catch(e){}</script><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Iván András Digital Studio</title><link rel="icon" href="assets/logo.svg"><link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="header">
+  <a class="brand-big" href="index.html"><img src="assets/logo.svg" alt="Iván András Digital Studio"><span>IVÁN ANDRÁS<br><small>DIGITAL STUDIO</small></span></a>
+  <nav class="main-nav">
+    <a href="index.html" class="active" data-i18n="nav0">KEZDŐLAP</a>
+    <div class="nav-dropdown services-dropdown">
+      <button type="button" class="nav-dropdown-toggle" data-i18n="nav1">SZOLGÁLTATÁSOK <span>⌄</span></button>
+      <div class="nav-dropdown-menu">
+        <a href="index.html?service=personal#contact" data-service="personal" data-i18n="service0">Személyes weboldal</a>
+        <a href="index.html?service=business#contact" data-service="business" data-i18n="service1">Vállalati és céges weboldal</a>
+        <a href="index.html?service=shop#contact" data-service="shop" data-i18n="service2">Webáruház</a>
+      </div>
+    </div>
+    <a href="services.html" data-i18n="nav2">PROJEKTEK</a>
+    <a href="#faq" data-i18n="nav3">BLOG</a>
+    <a href="#about" data-i18n="nav4">RÓLUNK</a>
+    <a href="#contact" data-i18n="nav5">KAPCSOLAT</a>
+    <a href="karpatalja-atlasza/frontend/geography.html" target="_blank" rel="noopener noreferrer" data-i18n="navWebMap">WEB TÉRKÉP</a><a href="#offer" class="nav-cta" data-i18n="nav6">AJÁNLATKÉRÉS</a>
+  </nav>
+  <div class="header-right">
+    <div class="lang-wrap"><button id="langButton" class="header-action lang-current">CZ <b>⌄</b></button><div id="langMenu" class="lang-menu"></div></div>
+    <a class="header-action login-action" href="admin.html">BELÉPÉS</a>
+  </div>
+  <button id="mobileMenuButton" class="mobile-menu-button">☰</button>
+  <div id="mobileMenu" class="mobile-menu"><nav>
+    <a href="index.html" data-i18n="nav0">KEZDŐLAP</a>
+    <details class="mobile-nav-group"><summary data-i18n="nav1">SZOLGÁLTATÁSOK <span>⌄</span></summary><div class="mobile-submenu">
+      <a href="index.html?service=personal#contact" data-service="personal" data-i18n="service0">Személyes weboldal</a>
+      <a href="index.html?service=business#contact" data-service="business" data-i18n="service1">Vállalati és céges weboldal</a>
+      <a href="index.html?service=shop#contact" data-service="shop" data-i18n="service2">Webáruház</a>
+    </div></details>
+    <a href="services.html" data-i18n="nav2">PROJEKTEK</a><a href="#faq" data-i18n="nav3">BLOG</a><a href="#about" data-i18n="nav4">RÓLUNK</a><a href="#contact" data-i18n="nav5">KAPCSOLAT</a><a href="#offer" data-i18n="nav6">AJÁNLATKÉRÉS</a>
+  </nav></div>
+</header>
+<main>
+<section class="hero home-hero editorial-hero" id="home"><div class="hero-main"><p class="eyebrow" id="heroEy">IVÁN ANDRÁS / DIGITAL STUDIO</p><h1 id="heroH">Digitális megoldások, amelyek valóban működnek.</h1><p id="heroP">Weboldalak, webalkalmazások, Web Mapping, GIS és design egyetlen kreatív rendszerben.</p><div class="hero-actions"><a class="btn green" href="#offer" id="heroCta">AJÁNLATKÉRÉS</a><a class="text-link" href="services.html" id="heroProjects">PROJEKTEK →</a></div></div><div class="hero-caption"><span id="heroAbout">RÓLAM</span><strong id="heroName">Iván András</strong><small id="heroRole">Webfejlesztő · GIS / Web Mapping · Designer · Fotográfus</small></div></section>
+
+<section class="benefits section-dark"><div class="section-title"><p class="eyebrow" id="benefitEyebrow">A LÉNYEG, RÖVIDEN</p><h2 id="benefitTitle">Mit kapsz pontosan?</h2><span class="title-line"></span></div><div class="benefit-grid" id="benefitGrid"></div><div class="center-cta"><h3 id="benefitCtaTitle">Egy digitális rendszer, nem csak egy szép weboldal.</h3><p id="benefitCtaText">A technikai háttértől a vizuális megjelenésig minden részletet összehangolok.</p><a class="btn purple" href="#offer" id="benefitCta">BESZÉLJÜNK RÓLA</a></div></section>
+
+<section class="process section-dark"><div class="section-title"><p class="eyebrow" id="processEy">ÁTLÁTHATÓ FOLYAMAT, KISZÁMÍTHATÓ EREDMÉNY</p><h2 id="processTitle">Hogyan dolgozunk?</h2><span class="title-line"></span></div><div class="process-line" id="processGrid"></div><div class="guarantee"><div class="shield">✓</div><h3 id="guaranteeTitle">Webes megoldás, amelyre hosszú távon számíthatsz</h3><p id="guaranteeText">Átadás után is elérhető maradok: frissítés, fejlesztés és technikai segítség szükség esetén.</p></div><div class="center-cta"><a class="btn purple" href="#offer" id="processCta">KEZDJÜK EL A PROJEKTET →</a></div></section>
+
+<section class="faq section-dark" id="faq"><div class="section-title"><p class="eyebrow" id="faqEy">GYORS VÁLASZOK A LEGFONTOSABB KÉRDÉSEKRE</p><h2 id="faqTitle">Gyakori kérdések</h2><span class="title-line"></span></div><div class="faq-list" id="faqList"></div></section>
+
+<section class="about-section about-premium" id="about"><div class="about-copy-card"><p class="eyebrow" id="aboutEy">RÓLAM</p><h2 id="aboutTitle">Digitális megoldások, személyes hozzáállással.</h2><p id="aboutText">Webfejlesztéssel, térinformatikával, Web Mappinggel és digitális designnal foglalkozom. A célom nem csupán egy látványos felület létrehozása, hanem egy olyan jól működő rendszer, amely valóban támogatja az ügyfél munkáját és hosszú távon is fejleszthető.</p><p class="about-extra" id="aboutExtra">A projekteket az első ötlettől a tervezésen és fejlesztésen át az átadásig egy átlátható folyamatban építem fel.</p></div><div class="about-video-wrap"><div class="about-video" id="aboutVideo"><div class="about-video-empty">A bemutatkozó YouTube-videó itt jelenik meg.</div></div></div></section>
+<section class="offer-section" id="offer"><div><p class="eyebrow" id="offerEy">AJÁNLATKÉRÉS</p><h2 id="offerTitle">Van egy ötleted?</h2><p id="offerText">Írd meg röviden, mit szeretnél létrehozni. Áttekintem az igényt, és javaslatot teszek a megvalósításra.</p></div><a class="btn green" href="#contact" id="offerBtn">AJÁNLATOT KÉREK →</a></section>
+<section class="contact-section" id="contact"><div><p class="eyebrow" id="contactEy">KAPCSOLAT</p><h2 id="contactTitle">Kezdjünk el dolgozni.</h2><p id="contactText">Írd meg röviden a projektedet, és egyeztessük a következő lépést.</p><div class="contact-data"><b>+420 722 076 243</b><b>ivan.andras90@gmail.com</b></div></div><form id="contactForm"><input name="name" placeholder="Név" required><input name="email" type="email" placeholder="E-mail cím" required><select name="type" id="formType"></select><textarea name="message" rows="5" placeholder="Projekt rövid leírása" required></textarea><button class="btn green" id="contactBtn">AJÁNLATKÉRÉS KÜLDÉSE →</button></form></section>
+</main>
+<footer class="premium-footer" id="siteFooter">
+  <div class="footer-grid">
+    <div class="footer-brand-column">
+      <img class="footer-logo-large" src="assets/logo.svg" alt="Iván András Digital Studio">
+      <p class="footer-brand-services" id="footerServices">Web · Webalkalmazások · Web Mapping · GIS · Design · Fotózás</p>
+      <div class="footer-contact-details">
+        <a href="tel:+420722076243">+420 722 076 243</a>
+        <a href="mailto:ivan.andras90@gmail.com">ivan.andras90@gmail.com</a>
+        <a href="https://www.facebook.com/andras.ivan.56" target="_blank" rel="noopener">Facebook →</a>
+      </div>
+    </div>
+    <div class="footer-links-column">
+      <h3 id="footerMapTitle">Oldaltérkép</h3>
+      <a href="index.html" data-footer-nav="0">Kezdőlap</a>
+      <a href="services.html" data-footer-nav="1">Szolgáltatások</a>
+      <a href="services.html" data-footer-nav="2">Munkáink</a>
+      <a href="#faq" data-footer-nav="3">Blog</a>
+      <a href="#about" data-footer-nav="4">Rólunk</a>
+      <a href="#contact" data-footer-nav="5">Kapcsolat</a>
+      <a href="#offer" data-footer-nav="6">Ajánlatkérés</a>
+    </div>
+    <div class="footer-social-column">
+      <h3 id="footerSocialTitle">Kapcsolat és közösségi felületek</h3>
+      <div class="footer-socials"><a href="https://www.facebook.com/andras.ivan.56" target="_blank" rel="noopener">f</a><a href="#contact">@</a><a href="mailto:ivan.andras90@gmail.com">✉</a></div>
+      <a class="footer-login" id="footerLogin" href="admin.html">BELÉPÉS</a>
+      <a class="footer-top-link" href="#home">↑ <span id="footerTopText">Vissza a tetejére</span></a>
+    </div>
+    <div class="footer-legal-column">
+      <h3 id="footerLegalTitle">Jogi nyilatkozat</h3>
+      <p id="footerLegalText">Figyelem! Az ezen a weboldalon található tartalmak szerzői jogi védelem alatt állnak. A szövegek, képek és egyéb anyagok nem a véletlen művei, hanem hosszú évek tapasztalatának és munkájának eredményei.<br><br>A tartalmak engedély nélküli másolása, felhasználása vagy terjesztése nemcsak etikátlan, hanem jogi következményekkel is járhat.<br><br>És ahogy a hadtörténelem is bizonyítja: a rossz stratégiai döntéseknek általában ára van.<br><br>Ha valamelyik tartalmat fel szeretnéd használni, vedd fel velem a kapcsolatot – a civilizált együttműködés mindig jobb megoldás, mint az eszkalálódás.<br><br>Köszönöm, hogy tiszteletben tartod a szellemi tulajdont.</p>
+    </div>
+  </div>
+  <div class="footer-copyright"><span>© 2026 Iván András Digital Studio. Minden jog fenntartva.</span></div>
+</footer>
+<script src="script.js"></script>
+<script src="analytics-tracking.js" defer></script>
+</body></html>

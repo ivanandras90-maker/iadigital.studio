@@ -1,0 +1,170 @@
+{
+  "settings": {
+    "accent": "#2f8f5b",
+    "dark": "#0d1712",
+    "soft": "#f2f7f3",
+    "siteTitle": "Iván András Digital Studio"
+  },
+  "contact": {
+    "phone": "+420 722 076 243",
+    "email": "ivan.andras90@gmail.com",
+    "location": "Česká republika · Praha a okolí",
+    "facebook": "https://www.facebook.com/andras.ivan.56",
+    "profilePhoto": "assets/profile.jpg"
+  },
+  "languages": {
+    "cs": {
+      "heroK": "IVÁN ANDRÁS / DIGITAL STUDIO",
+      "heroH": "Digitální řešení, která mají smysl.",
+      "heroP": "Webové stránky, webové aplikace a interaktivní mapy v prémiovém provedení.",
+      "heroCta": "Prohlédnout projekty",
+      "services": "Služby",
+      "projects": "Vybrané projekty",
+      "about": "O mně",
+      "contact": "Kontakt",
+      "contactH": "Máte projekt?",
+      "contactP": "Napište mi stručně, co potřebujete. Ozvu se s návrhem dalšího postupu.",
+      "web": "Webové stránky",
+      "webP": "Moderní, rychlé a responzivní weby.",
+      "app": "Webové aplikace",
+      "appP": "Kalkulátory, databáze, administrace a vlastní nástroje.",
+      "map": "Web Mapping & GIS",
+      "mapP": "Interaktivní mapy, GeoJSON, GIS a prostorová data.",
+      "design": "Design & fotografie",
+      "designP": "UI/UX, vizuální obsah a profesionální fotografie.",
+      "nav": [
+        "Domů",
+        "Služby",
+        "Projekty",
+        "O mně",
+        "Kontakt"
+      ]
+    },
+    "en": {
+      "heroK": "IVÁN ANDRÁS / DIGITAL STUDIO",
+      "heroH": "Digital solutions with purpose.",
+      "heroP": "Premium websites, web applications and interactive mapping systems.",
+      "heroCta": "View projects",
+      "services": "Services",
+      "projects": "Selected projects",
+      "about": "About",
+      "contact": "Contact",
+      "contactH": "Have a project?",
+      "contactP": "Tell me briefly what you need. I will reply with the next steps.",
+      "web": "Websites",
+      "webP": "Modern, fast and responsive websites.",
+      "app": "Web applications",
+      "appP": "Calculators, databases, admin systems and custom tools.",
+      "map": "Web Mapping & GIS",
+      "mapP": "Interactive maps, GeoJSON, GIS and spatial data.",
+      "design": "Design & photography",
+      "designP": "UI/UX, visual content and professional photography.",
+      "nav": [
+        "Home",
+        "Services",
+        "Projects",
+        "About",
+        "Contact"
+      ]
+    },
+    "uk": {
+      "heroK": "IVÁN АНДРАС / DIGITAL STUDIO",
+      "heroH": "Цифрові рішення з сенсом.",
+      "heroP": "Преміальні вебсайти, вебзастосунки та інтерактивні карти.",
+      "heroCta": "Переглянути проєкти",
+      "services": "Послуги",
+      "projects": "Вибрані проєкти",
+      "about": "Про мене",
+      "contact": "Контакти",
+      "contactH": "Маєте проєкт?",
+      "contactP": "Коротко опишіть завдання. Я відповім і запропоную наступні кроки.",
+      "web": "Вебсайти",
+      "webP": "Сучасні, швидкі та адаптивні вебсайти.",
+      "app": "Вебзастосунки",
+      "appP": "Калькулятори, бази даних, адмінсистеми та власні інструменти.",
+      "map": "Web Mapping & GIS",
+      "mapP": "Інтерактивні карти, GeoJSON, GIS та просторові дані.",
+      "design": "Дизайн і фотографія",
+      "designP": "UI/UX, візуальний контент та професійна фотографія.",
+      "nav": [
+        "Головна",
+        "Послуги",
+        "Проєкти",
+        "Про мене",
+        "Контакти"
+      ]
+    },
+    "hu": {
+      "heroK": "IVÁN ANDRÁS / DIGITAL STUDIO",
+      "heroH": "Digitális megoldások valódi céllal.",
+      "heroP": "Prémium weboldalak, webalkalmazások és interaktív térképes rendszerek.",
+      "heroCta": "Projektek megtekintése",
+      "services": "Szolgáltatások",
+      "projects": "Kiemelt projektek",
+      "about": "Rólam",
+      "contact": "Kapcsolat",
+      "contactH": "Van egy projekted?",
+      "contactP": "Írd meg röviden, mire van szükséged. Válaszolok és javaslatot teszek a következő lépésekre.",
+      "web": "Weboldalak",
+      "webP": "Modern, gyors és reszponzív weboldalak.",
+      "app": "Webalkalmazások",
+      "appP": "Kalkulátorok, adatbázisok, adminrendszerek és egyedi eszközök.",
+      "map": "Web Mapping & GIS",
+      "mapP": "Interaktív térképek, GeoJSON, GIS és térinformatikai adatok.",
+      "design": "Design és fotózás",
+      "designP": "UI/UX, vizuális tartalom és professzionális fotózás.",
+      "nav": [
+        "Kezdőlap",
+        "Szolgáltatások",
+        "Projektek",
+        "Rólam",
+        "Kapcsolat"
+      ]
+    }
+  },
+  "projects": [
+    {
+      "id": "atlas",
+      "title": "Kárpátalja Atlasz",
+      "category": "WEB MAPPING / GIS",
+      "description": "Történeti atlasz interaktív térképi rétegekkel, történeti adatokkal és térinformatikai elemzéssel.",
+      "enabled": true
+    },
+    {
+      "id": "roof",
+      "title": "Roof Calculator",
+      "category": "WEB APPLICATION",
+      "description": "Böngészőben futó geometriai alkalmazás tetősíkok és felületek kiszámítására.",
+      "enabled": true
+    },
+    {
+      "id": "camp",
+      "title": "Camping Web System",
+      "category": "WEB / TOURISM",
+      "description": "Turisztikai weboldal interaktív területi térképpel és digitális információs rendszerrel.",
+      "enabled": true
+    },
+    {
+      "id": "photo",
+      "title": "Photography",
+      "category": "PHOTO / BRAND",
+      "description": "Portré-, rendezvény-, esküvői és üzleti fotográfiai vizuális megoldások.",
+      "enabled": true
+    },
+    {
+      "id": "gis",
+      "title": "GIS Explorer",
+      "category": "GIS / DATA",
+      "description": "Térbeli adatok böngészése, rétegek kezelése és webes térképi megjelenítés.",
+      "enabled": true
+    },
+    {
+      "id": "studio",
+      "title": "Digital Studio",
+      "category": "WEB / DESIGN",
+      "description": "Az Iván András Digital Studio saját digitális arculata és webes rendszere.",
+      "enabled": true
+    }
+  ],
+  "aboutVideoUrl": ""
+}

@@ -1,0 +1,15 @@
+V33 VISUAL EDITOR IMPROVEMENTS
+
+This release adds the following to the existing custom visual editor:
+- Undo and redo history (up to 60 editor states).
+- A selected-element property panel for simple text, link URL, image/media URL, font size and padding.
+- Selection highlighting in the preview.
+- Draft snapshotting after edits and style changes.
+- Confirmation before replacing the current canvas with the starter template.
+
+Limitations to understand:
+- This is a custom lightweight editor, not the full WordPress/Gutenberg or GrapesJS feature set.
+- Media URLs can be changed, but this does not upload files to a media library.
+- Existing page scripts and linked stylesheets are intentionally removed by the current-page loader; do not replace index.html without separately validating the exported page.
+- GitHub publication requires a valid fine-grained token and must be tested against the target repository. Use the preview path first.
+- Drafts are browser-local unless exported/published.

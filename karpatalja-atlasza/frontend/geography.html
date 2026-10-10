@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="hu">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IA Digital Studio – Rajzolható webtérkép</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css">
+<style>
+:root{--navy:#102638;--navy2:#17374d;--gold:#c09d57;--paper:#f6f7f4;--ink:#183042}
+*{box-sizing:border-box}html,body{height:100%;margin:0;font-family:Inter,Arial,sans-serif;color:var(--ink);background:var(--paper)}
+.topbar{height:auto;min-height:64px;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:12px 22px;background:var(--navy);color:white;border-bottom:3px solid var(--gold)}
+.brand{font-weight:800;letter-spacing:.02em}.brand small{display:block;margin-top:4px;font-size:11px;color:#d9c28e;font-weight:500;letter-spacing:.12em}
+.topbar a{color:#fff;text-decoration:none;border:1px solid #547080;padding:9px 12px;border-radius:8px;font-size:13px}
+.layout{height:calc(100% - 67px);display:grid;grid-template-columns:300px minmax(0,1fr)}
+.sidebar{overflow:auto;padding:18px;background:white;border-right:1px solid #dbe2e4}
+h1{font-size:20px;line-height:1.25;margin:0 0 8px;color:var(--navy)}.intro{font-size:13px;line-height:1.55;color:#62717a;margin:0 0 18px}
+.panel{padding:14px;border:1px solid #dce4e5;border-radius:12px;margin-bottom:14px;background:#fff}
+.panel h2{font-size:13px;text-transform:uppercase;letter-spacing:.08em;margin:0 0 11px;color:#425966}
+button,.button{border:0;border-radius:8px;padding:10px 12px;background:var(--navy2);color:white;font-weight:700;cursor:pointer;font-size:12px}
+button:hover,.button:hover{filter:brightness(1.12)}button.secondary{background:#e9eef0;color:var(--navy)}button.gold{background:var(--gold);color:#1c2b33}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+label{display:block;font-size:12px;font-weight:700;margin:10px 0 5px}
+input[type=text],textarea,select{width:100%;border:1px solid #ccd7db;border-radius:7px;padding:9px;font:13px Arial,sans-serif;background:white;color:#1d3544}
+textarea{resize:vertical;min-height:85px}
+.hint{font-size:11px;line-height:1.45;color:#73818a;margin-top:8px}
+#featureList{display:flex;flex-direction:column;gap:7px;max-height:230px;overflow:auto}
+.feature-row{display:flex;gap:7px;align-items:center;border:1px solid #e0e6e8;border-radius:8px;padding:8px;font-size:12px}
+.feature-row span{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.feature-row button{padding:6px 8px;font-size:11px}
+.mapwrap{position:relative;min-width:0;min-height:0}#map{height:100%;width:100%;background:#e9ece8}
+.status{position:absolute;z-index:500;left:12px;bottom:12px;background:#102638ed;color:white;border-radius:8px;padding:8px 11px;font-size:11px;pointer-events:none}
+.text-label{min-width:70px;max-width:240px;padding:6px 9px;background:#fffdf3;border:1px solid #b18b42;border-radius:5px;color:#183042;box-shadow:0 2px 8px #10263830;white-space:pre-wrap;font:600 13px/1.35 Arial,sans-serif}
+.leaflet-div-icon.text-marker{background:transparent;border:0}
+@media(max-width:800px){.layout{height:calc(100% - 67px);grid-template-columns:1fr;grid-template-rows:auto minmax(350px,1fr)}.sidebar{max-height:42vh;border-right:0;border-bottom:1px solid #dbe2e4;padding:12px}.panel{margin-bottom:9px}.mapwrap{min-height:350px}.topbar{padding:10px 12px}.brand{font-size:13px}}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">IVÁN ANDRÁS · DIGITAL STUDIO<small>INTERAKTÍV FÖLDRAJZI WEBTÉRKÉP</small></div>
+  <a href="../../index.html">← Vissza a weboldalra</a>
+</header>
+<div class="layout">
+  <aside class="sidebar">
+    <h1>Rajzolható webtérkép</h1>
+    <p class="intro">Rajzolj pontot, vonalat, területet vagy helyezz el szöveges megjegyzést a térképen. A rajzokat a böngésző helyben megőrzi, és GeoJSON-fájlként exportálhatod.</p>
+    <section class="panel">
+      <h2>Szöveges megjegyzés</h2>
+      <label for="noteText">Szöveg</label>
+      <textarea id="noteText" placeholder="Írd ide a térképre helyezendő feliratot…"></textarea>
+      <p class="hint">Írd be a szöveget, majd kattints a „Szöveg elhelyezése” gombra, és kattints a térképen a kívánt helyre.</p>
+      <div class="actions">
+        <button id="placeText" class="gold">Szöveg elhelyezése</button>
+        <button id="cancelText" class="secondary">Mégse</button>
+      </div>
+    </section>
+    <section class="panel">
+      <h2>Rajzok kezelése</h2>
+      <div class="actions">
+        <button id="saveDrawings">Mentés</button>
+        <button id="exportGeoJSON" class="gold">GeoJSON export</button>
+        <button id="importButton" class="secondary">Betöltés fájlból</button>
+        <button id="clearDrawings" class="secondary">Összes törlése</button>
+      </div>
+      <input id="importFile" type="file" accept=".json,.geojson,application/geo+json,application/json" hidden>
+      <p id="saveStatus" class="hint" aria-live="polite">A rajzok automatikus helyi mentése aktív.</p>
+    </section>
+    <section class="panel">
+      <h2>Elemek</h2>
+      <div id="featureList"><div class="hint">Még nincs rajz a térképen.</div></div>
+    </section>
+    <p class="hint">A rajzolóeszközök a térkép bal felső sarkában találhatók. Szöveg szerkesztéséhez kattints a feliratra.</p>
+  </aside>
+  <main class="mapwrap">
+    <div id="map" aria-label="Interaktív rajzolható térkép"></div>
+    <div class="status" id="coordStatus">Kattints a térképre vagy használj egy rajzeszközt.</div>
+  </main>
+</div>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js"></script>
+<script>
+(() => {
+  const STORAGE_KEY = 'ia-digital-studio-map-drawings-v1';
+  const map = L.map('map', {preferCanvas:true}).setView([48.15, 22.7], 8);
+  const osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19, attribution: '&copy; OpenStreetMap contributors'
+  }).addTo(map);
+  const drawnItems = new L.FeatureGroup().addTo(map);
+  const status = document.getElementById('saveStatus');
+  const coordStatus = document.getElementById('coordStatus');
+  let placingText = false;
+  let saveTimer = null;
+
+  function setStatus(message) { status.textContent = message; }
+  function getText(layer) { return layer.feature && layer.feature.properties ? (layer.feature.properties.label || '') : (layer.options.label || ''); }
+  function setText(layer, text) {
+    layer.options.label = text;
+    layer.feature = layer.feature || {type:'Feature', properties:{}, geometry:null};
+    layer.feature.properties = layer.feature.properties || {};
+    layer.feature.properties.label = text;
+    if (layer.setIcon) layer.setIcon(textIcon(text));
+    if (layer.getPopup && layer.getPopup()) layer.setPopupContent(escapeHtml(text));
+  }
+  function textIcon(text) {
+    return L.divIcon({className:'text-marker', html:'<div class="text-label">'+escapeHtml(text)+'</div>', iconSize:null, iconAnchor:[8,12]});
+  }
+  function escapeHtml(value) {
+    return String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  }
+  function ensureFeature(layer) {
+    if (!layer.feature) layer.feature = {type:'Feature',properties:{},geometry:null};
+    if (!layer.feature.properties) layer.feature.properties = {};
+    if (layer instanceof L.Marker && layer.options.label) layer.feature.properties.label = layer.options.label;
+    return layer.feature;
+  }
+  function layerLabel(layer, index) {
+    const feature=ensureFeature(layer), p=feature.properties||{};
+    if (p.label) return p.label.replace(/\s+/g,' ').slice(0,55);
+    if (p.name) return p.name;
+    if (layer instanceof L.Circle) return 'Kör';
+    if (layer instanceof L.Rectangle) return 'Téglalap';
+    if (layer instanceof L.Polygon) return 'Terület';
+    if (layer instanceof L.Polyline) return 'Vonal';
+    if (layer instanceof L.Marker) return 'Pont';
+    return 'Elem '+(index+1);
+  }
+  function refreshList() {
+    const root=document.getElementById('featureList'); root.innerHTML='';
+    const layers=[]; drawnItems.eachLayer(l=>layers.push(l));
+    if (!layers.length) { root.innerHTML='<div class="hint">Még nincs rajz a térképen.</div>'; return; }
+    layers.forEach((layer,i)=>{
+      const row=document.createElement('div'); row.className='feature-row';
+      const label=document.createElement('span'); label.textContent=layerLabel(layer,i); label.title=label.textContent;
+      const edit=document.createElement('button'); edit.textContent='Szerk.'; edit.className='secondary';
+      edit.addEventListener('click',()=>editFeatureText(layer));
+      const del=document.createElement('button'); del.textContent='×'; del.title='Elem törlése';
+      del.addEventListener('click',()=>{drawnItems.removeLayer(layer);scheduleSave();refreshList();});
+      row.append(label,edit,del); root.appendChild(row);
+    });
+  }
+  function editFeatureText(layer) {
+    const old=getText(layer);
+    const value=prompt('Felirat / megjegyzés (üresen hagyva törlődik):',old);
+    if (value===null) return;
+    const feature=ensureFeature(layer);
+    if (value.trim()) { feature.properties.label=value.trim(); layer.options.label=value.trim(); }
+    else { delete feature.properties.label; delete layer.options.label; }
+    if (layer instanceof L.Marker && layer.options.isTextMarker) {
+      if (value.trim()) layer.setIcon(textIcon(value.trim()));
+      else { drawnItems.removeLayer(layer); }
+    } else if (value.trim() && layer.bindTooltip) {
+      layer.bindTooltip(escapeHtml(value.trim()),{sticky:true});
+    } else if (layer.unbindTooltip) layer.unbindTooltip();
+    scheduleSave();refreshList();
+  }
+  function serialize() {
+    const fc=drawnItems.toGeoJSON();
+    fc.features.forEach((f,i)=>{
+      const layer=Array.from(drawnItems.getLayers())[i];
+      if (layer) {
+        const props=ensureFeature(layer).properties||{};
+        f.properties={...f.properties,...props};
+        if (layer.options.isTextMarker) f.properties.kind='text';
+        if (layer instanceof L.Circle) f.properties.radius=layer.getRadius();
+      }
+    });
+    return fc;
+  }
+  function scheduleSave() {
+    clearTimeout(saveTimer);
+    saveTimer=setTimeout(()=>{
+      try { localStorage.setItem(STORAGE_KEY,JSON.stringify(serialize())); setStatus('Mentve a böngészőben · '+new Date().toLocaleTimeString()); }
+      catch(e){setStatus('A helyi mentés nem sikerült. Használd a GeoJSON exportot.');}
+    },300);
+    refreshList();
+  }
+  function loadGeoJSON(fc) {
+    if (!fc || !Array.isArray(fc.features)) throw new Error('A fájl nem érvényes GeoJSON FeatureCollection.');
+    drawnItems.clearLayers();
+    L.geoJSON(fc,{
+      pointToLayer:(feature,latlng)=>{
+        if (feature.properties && feature.properties.kind==='text') {
+          const marker=L.marker(latlng,{icon:textIcon(feature.properties.label||''),isTextMarker:true,label:feature.properties.label||''});
+          marker.feature=feature; return marker;
+        }
+        return L.marker(latlng);
+      },
+      style:feature=>({color:(feature.properties&&feature.properties.color)||'#176c8a',weight:3,fillOpacity:.18}),
+      onEachFeature:(feature,layer)=>{
+        layer.feature=feature;
+        if (feature.properties && feature.properties.radius && layer.setRadius) layer.setRadius(feature.properties.radius);
+        const label=feature.properties&&feature.properties.label;
+        if (label && !(feature.properties.kind==='text')) layer.bindTooltip(escapeHtml(label),{sticky:true});
+        drawnItems.addLayer(layer);
+      }
+    });
+    scheduleSave();refreshList();
+  }
+
+  const drawControl = new L.Control.Draw({
+    position:'topleft',
+    draw:{
+      polyline:{shapeOptions:{color:'#176c8a',weight:3}},
+      polygon:{allowIntersection:false,showArea:true,shapeOptions:{color:'#176c8a',weight:3,fillOpacity:.18}},
+      rectangle:{shapeOptions:{color:'#176c8a',weight:3,fillOpacity:.18}},
+      circle:{shapeOptions:{color:'#176c8a',weight:3,fillOpacity:.18}},
+      marker:true,
+      circlemarker:false
+    },
+    edit:{featureGroup:drawnItems,remove:true}
+  });
+  map.addControl(drawControl);
+
+  map.on(L.Draw.Event.CREATED,e=>{
+    const layer=e.layer;
+    if (layer instanceof L.Marker) layer.options.isTextMarker=false;
+    drawnItems.addLayer(layer); scheduleSave(); refreshList();
+  });
+  map.on(L.Draw.Event.EDITED,()=>{scheduleSave();refreshList();});
+  map.on(L.Draw.Event.DELETED,()=>{scheduleSave();refreshList();});
+  map.on('mousemove',e=>coordStatus.textContent='Koordináta: '+e.latlng.lat.toFixed(5)+', '+e.latlng.lng.toFixed(5));
+  map.on('click',e=>{
+    if (!placingText) return;
+    const text=document.getElementById('noteText').value.trim();
+    if (!text) {setStatus('Előbb írj be egy szöveget.');placingText=false;return;}
+    const marker=L.marker(e.latlng,{icon:textIcon(text),isTextMarker:true,label:text,keyboard:true});
+    marker.feature={type:'Feature',properties:{label:text,kind:'text'},geometry:{type:'Point',coordinates:[e.latlng.lng,e.latlng.lat]}};
+    drawnItems.addLayer(marker); placingText=false; map.getContainer().style.cursor='';
+    document.getElementById('placeText').textContent='Szöveg elhelyezése';
+    scheduleSave();refreshList();setStatus('A szöveges megjegyzés elhelyezve.');
+  });
+  document.getElementById('placeText').addEventListener('click',()=>{
+    const text=document.getElementById('noteText').value.trim();
+    if (!text) {setStatus('Előbb írj be egy szöveget.');return;}
+    placingText=true; map.getContainer().style.cursor='crosshair';
+    document.getElementById('placeText').textContent='Kattints a térképre…';
+    setStatus('Kattints a térképen oda, ahová a felirat kerüljön.');
+  });
+  document.getElementById('cancelText').addEventListener('click',()=>{
+    placingText=false;map.getContainer().style.cursor='';
+    document.getElementById('placeText').textContent='Szöveg elhelyezése';
+  });
+  document.getElementById('saveDrawings').addEventListener('click',()=>{
+    try{localStorage.setItem(STORAGE_KEY,JSON.stringify(serialize()));setStatus('A rajzok elmentve ebben a böngészőben.');}
+    catch(e){setStatus('Mentési hiba. Exportáld GeoJSON-fájlként.');}
+  });
+  document.getElementById('exportGeoJSON').addEventListener('click',()=>{
+    const blob=new Blob([JSON.stringify(serialize(),null,2)],{type:'application/geo+json'});
+    const url=URL.createObjectURL(blob),a=document.createElement('a');
+    a.href=url;a.download='ia-webterkep-rajzok.geojson';a.click();URL.revokeObjectURL(url);
+  });
+  document.getElementById('importButton').addEventListener('click',()=>document.getElementById('importFile').click());
+  document.getElementById('importFile').addEventListener('change',async e=>{
+    const file=e.target.files&&e.target.files[0];if(!file)return;
+    try{loadGeoJSON(JSON.parse(await file.text()));setStatus('A GeoJSON-fájl betöltve.');}
+    catch(err){setStatus('Betöltési hiba: '+err.message);}
+    e.target.value='';
+  });
+  document.getElementById('clearDrawings').addEventListener('click',()=>{
+    if(!confirm('Biztosan törlöd az összes rajzot és feliratot?'))return;
+    drawnItems.clearLayers();scheduleSave();refreshList();setStatus('A rajzok törölve.');
+  });
+  drawnItems.on('layeradd layerremove',()=>{scheduleSave();refreshList();});
+  try{
+    const saved=localStorage.getItem(STORAGE_KEY);
+    if(saved)loadGeoJSON(JSON.parse(saved));
+  }catch(e){setStatus('A korábbi mentés nem tölthető be.');}
+  setTimeout(()=>map.invalidateSize(),100);
+})();
+</script>
+</body>
+</html>

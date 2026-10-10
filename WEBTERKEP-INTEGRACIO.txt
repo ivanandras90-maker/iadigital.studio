@@ -1,0 +1,16 @@
+V41 – LEAFLET DRAW WEBTÉRKÉP
+
+A Digital Studio fejlécében a WEB TÉRKÉP menü a következő oldalra mutat:
+karpatalja-atlasza/frontend/geography.html
+
+A térkép egyszerűsített Leaflet felületet használ, a Leaflet.draw eszközeivel.
+Támogatott: pont, vonal, sokszög/terület, téglalap, kör, szöveges megjegyzés,
+elemfelirat szerkesztése, helyi automatikus mentés, GeoJSON export és import.
+
+A geometriák helyi böngészőtárban tárolódnak, tehát nem szinkronizálódnak
+automatikusan másik böngészőbe vagy eszközre. A térképcsempék és a Leaflet
+könyvtárak internetkapcsolatot igényelnek. Az alaptérkép OpenStreetMap.
+
+A kérésnek megfelelően a földrajzi térkép oldaláról kimaradt a georeferáló,
+prezentációs és raszterexport felület. A térképes rajzokat a GeoJSON export
+gombbal lehet külön fájlba menteni.

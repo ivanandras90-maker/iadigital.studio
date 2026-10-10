@@ -1,0 +1,13 @@
+IVAN ANDRAS DIGITAL STUDIO — V35 VISUAL EDITOR
+
+Changes from V34:
+- The editor discovers local .html pages linked from index.html and services.html and adds them to the page selector. The repository currently ships with index.html and services.html; discovery can only find reachable local HTML pages, not unlinked files.
+- The complete source document is retained as an export template. The body content is editable, inline styles and linked CSS are loaded into the editor, and the original head/scripts are retained in the exported document. Scripts are intentionally not run inside the editing iframe for safety; test interactive behavior in preview/staging before publishing.
+- Drafts are separated by page and language (HU/CS/EN/UK). Language variants are separate editable drafts; text is NOT automatically translated.
+- Added image upload into the draft and alt-text editing. Images are embedded as data URLs (4 MB limit), which can make the HTML large; for production, upload media to a repository assets folder or a media service instead.
+- Added visual editor language selector and page discovery.
+
+Security and testing notes:
+- GitHub publishing still requires the owner to enter and test their own fine-grained token. No real repository credentials are available in this development environment, so a live GitHub publish was not performed.
+- Always publish to a preview path first. Keep a repository backup and check all interactive scripts/forms/mobile layouts before overwriting a live page.
+- GitHub Pages is static hosting. This editor stores drafts in this browser's localStorage; it is not a multi-user CMS or server-side media library.

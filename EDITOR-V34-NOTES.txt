@@ -1,0 +1,19 @@
+IVAN ANDRAS DIGITAL STUDIO - V34 VISUAL EDITOR UPDATE
+
+Changes:
+- The editor work area is taller and scrollable; the preview iframe is 1200px high by default so the full page can be inspected by scrolling.
+- Added a page selector for index.html (home) and services.html (services page).
+- Drafts are stored separately per page in this browser, preventing one page draft from overwriting the other page draft.
+- The selected page is loaded from the current GitHub Pages/site origin; use a web server or GitHub Pages rather than file:// because browsers block fetch() from local files.
+- Preview viewport can be set to desktop, tablet, or mobile.
+- Editor-only selection outlines and draggable attributes are removed from exported HTML.
+- Added a guard against publishing the services page to index.html accidentally.
+
+Important limitations:
+- This is a client-side visual editor, not a complete WordPress CMS.
+- Current page loading strips script and stylesheet link tags from the preview. The editor loads styles.css separately. Publishing creates a standalone HTML document and does NOT preserve all original JavaScript interactions or all linked assets automatically.
+- Do not replace index.html until the exported/published preview has been manually tested. Use visual-editor-preview.html for safe review first.
+- GitHub publishing requires a user-provided fine-grained token with Contents read/write for the selected repository. Token is held in sessionStorage only.
+- Current page list covers index.html and services.html. Additional pages should be added to the selector when added to the project.
+
+Validation performed: JavaScript syntax check (node --check) passed; ZIP archive integrity check passed.
